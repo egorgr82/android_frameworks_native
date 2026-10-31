@@ -118,10 +118,10 @@ public:
     static void dumpAllocationsToSystemLog();
 
     // Flattenable protocol
-    size_t getFlattenedSize() const;
-    size_t getFdCount() const;
-    status_t flatten(void*& buffer, size_t& size, int*& fds, size_t& count) const;
-    status_t unflatten(void const*& buffer, size_t& size, int const*& fds, size_t& count);
+    virtual size_t getFlattenedSize() const;
+    virtual size_t getFdCount() const;
+    virtual status_t flatten(void*& buffer, size_t& size, int*& fds, size_t& count) const;
+    virtual status_t unflatten(void const*& buffer, size_t& size, int const*& fds, size_t& count);
 
 private:
     virtual ~GraphicBuffer();
