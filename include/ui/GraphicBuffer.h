@@ -38,7 +38,7 @@ class GraphicBufferMapper;
 // ===========================================================================
 
 class GraphicBuffer
-    : public ANativeObjectBase< ANativeWindowBuffer, GraphicBuffer, RefBase >,
+    : public ANativeObjectBase<ANativeWindowBuffer, GraphicBuffer, LightRefBase<GraphicBuffer> >,
       public Flattenable<GraphicBuffer>
 {
     friend class Flattenable<GraphicBuffer>;
@@ -124,7 +124,7 @@ public:
     status_t unflatten(void const*& buffer, size_t& size, int const*& fds, size_t& count);
 
 private:
-    ~GraphicBuffer();
+    virtual ~GraphicBuffer();
 
     enum {
         ownNone   = 0,
