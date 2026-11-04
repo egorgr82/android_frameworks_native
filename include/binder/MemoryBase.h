@@ -33,6 +33,8 @@ public:
     MemoryBase(const sp<IMemoryHeap>& heap, ssize_t offset, size_t size);
     virtual ~MemoryBase();
     virtual sp<IMemoryHeap> getMemory(ssize_t* offset, size_t* size) const;
+    // legacy STE camera HAL ABI (old ssize_t was long)
+    sp<IMemoryHeap> getMemory(long* offset, unsigned int* size) const;
 
 protected:
     size_t getSize() const { return mSize; }

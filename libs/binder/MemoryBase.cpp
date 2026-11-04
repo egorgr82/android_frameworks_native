@@ -38,6 +38,13 @@ sp<IMemoryHeap> MemoryBase::getMemory(ssize_t* offset, size_t* size) const
     return mHeap;
 }
 
+sp<IMemoryHeap> MemoryBase::getMemory(long* offset, unsigned int* size) const
+{
+    if (offset) *offset = mOffset;
+    if (size)   *size = mSize;
+    return mHeap;
+}
+
 MemoryBase::~MemoryBase()
 {
 }
@@ -52,3 +59,10 @@ extern "C" void _ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEElj(void* o
     _ZN7android10MemoryBaseC1ERKNS_2spINS_11IMemoryHeapEEEij(obj, h, o, size);
 }
 #endif
+
+// Legacy STE camera HAL ABI: old headers had ssize_t == long. On ARM32 the
+// calling convention is identical, so alias the old-style symbols to the current ones.
+__asm__(
+    ".global _ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEElj\n"
+    ".thumb_set _ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEElj, _ZN7android10MemoryBaseC2ERKNS_2spINS_11IMemoryHeapEEEij\n"
+);
